@@ -4,7 +4,7 @@ interface withdrawFormProps {
     htmlFor: string
     label: string
     type?: string
-    value: any,
+    value?: any,
     onChange?: (...args: any) => any,
     error?: string
 }

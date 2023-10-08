@@ -1,4 +1,7 @@
+import { useNavigate } from "@remix-run/react"
+
 export default function Menu({ children }: { children: React.ReactNode }) {
+    const navigate = useNavigate()
     return (
         <header className="flex flex-wrap md:justify-start md:flex-nowrap shadow-lg z-50 w-full bg-white text-sm py-3 md:py-0 dark:bg-gray-800">
             <div className="max-w-[85rem] w-full mx-auto px-4 md:px-6 lg:px-8" aria-label="Global">
@@ -19,11 +22,15 @@ export default function Menu({ children }: { children: React.ReactNode }) {
                     <div id="navbar-collapse-with-animation" className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block">
                         <div className="overflow-hidden overflow-y-auto max-h-[75vh] scrollbar-y">
                             <div className="flex flex-col gap-x-0 mt-5 divide-y divide-dashed divide-gray-200 md:flex-row md:items-center md:justify-end md:gap-x-7 md:mt-0 md:pl-7 md:divide-y-0 md:divide-solid dark:divide-gray-700">
-                                <a className="font-medium text-gray-800 hover:text-gray-600 py-3 md:py-6 dark:text-gray-200 dark:hover:text-gray-500" href="#">
+                                <a onClick={() => navigate('/transfer')} className="font-medium text-gray-800 hover:text-gray-600 py-3 md:py-6 dark:text-gray-200 dark:hover:text-gray-500" >
                                     Transfer
                                 </a>
 
-                                <a className="font-medium text-gray-800 hover:text-gray-600 py-3 md:py-6 dark:text-gray-200 dark:hover:text-gray-500" href="#">
+                                <a onClick={() => navigate('/deposit')} className="font-medium text-gray-800 hover:text-gray-600 py-3 md:py-6 dark:text-gray-200 dark:hover:text-gray-500" >
+                                    Deposit
+                                </a>
+
+                                <a onClick={() => navigate('/withdraw')} className="font-medium text-gray-800 hover:text-gray-600 py-3 md:py-6 dark:text-gray-200 dark:hover:text-gray-500">
                                     Withdraw
                                 </a>
 
