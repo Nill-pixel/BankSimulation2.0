@@ -10,6 +10,7 @@ import { Profiles } from "~/component/profile";
 import { WithdrawForm } from "~/component/withdraw";
 import { debit, getAccount } from "~/utils/account.server";
 import { getClient, requireClientId } from "~/utils/auth.server";
+import { showSuccessAlert } from "~/utils/sweetAlert.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
     const client = await getClient(request)
@@ -23,11 +24,8 @@ export const action: ActionFunction = async ({ request }) => {
     const form = await request.formData()
     const action = form.get('_action')
     const balance = form.get('balance')
-
     const clientId = await requireClientId(request)
     const clientAccount = await getAccount(clientId)
-    const id = clientAccount?.id || ''
-
 
     if (typeof action !== 'string' || typeof balance !== 'string') {
         return json({ error: `Invalid form data`, form: action }, { status: 403 })
@@ -43,6 +41,11 @@ export const action: ActionFunction = async ({ request }) => {
                 clientId: clientAccount?.clientId,
                 iban: clientAccount?.iban
             } as Account
+            try {
+                await showSuccessAlert("withdraw with sucess")
+            } catch (error) {
+                return json({ error: `Invalid form data`, form: action }, { status: 403 })
+            }
 
             return await debit(account, balanceValue)
         }

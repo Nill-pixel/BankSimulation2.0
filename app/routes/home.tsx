@@ -1,6 +1,7 @@
 import { LoaderFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import Card from "~/component/card";
+import Historic from "~/component/historic";
 import { Layout } from "~/component/layout";
 import Menu from "~/component/menu";
 import MenuProfile from "~/component/menu-profile";
@@ -20,7 +21,8 @@ export default function Home() {
     return (
         <Layout>
             <Menu><MenuProfile profile={client.profile} /></Menu>
-            <Card> <Profiles account={clientAccount} profile={client.profile} /></Card>
+            <Card> <Profiles account={clientAccount} profile={client.profile} />
+            <Historic /></Card>
         </Layout>
     )
 }
