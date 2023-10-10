@@ -2,9 +2,6 @@ import { Account } from "@prisma/client";
 import { prisma } from "./db.server"
 import * as iban from 'iban';
 import { json } from "@remix-run/node";
-interface props {
-    account: Account
-}
 
 export const createAccount = async (clientId: string) => {
     const { iban, accountNumber } = generateIBANAndAccountNumber();
@@ -70,6 +67,7 @@ export function debit(account: Account, balance: number) {
 
     if (account.balance > balance) {
         account.balance -= balance
+        generateInvoice("debit", balance, account.id)
         return updateBalance(account.balance, account.id)
     } else {
         console.log("error")
@@ -79,11 +77,13 @@ export function debit(account: Account, balance: number) {
 
 export function deposit(account: Account, balance: number) {
     account.balance += balance
+    generateInvoice("deposit", balance, account.id)
     return updateBalance(account.balance, account.id)
 }
 
 export function transfer(account: Account, targetAccount: Account, balance: number) {
     debit(account, balance)
+    generateInvoice("transfer", balance, account.id)
     return deposit(targetAccount, balance)
 }
 
@@ -92,4 +92,14 @@ export const getTargetClient = async (clientId: string) => {
         where: { id: clientId }
     })
 
+}
+
+export const generateInvoice = async (name: string, balance: number, accountId: string) => {
+    return await prisma.invoice.create({
+        data: {
+            name: name,
+            balance: balance,
+            accountId: accountId
+        }
+    })
 }

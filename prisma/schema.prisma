@@ -27,23 +27,25 @@ type Profile {
 }
 
 model Account {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  balance       Float?
-  iban          String   @unique
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  balance       Float
+  iban          String    @unique
   accountNumber Int
-  createAt      DateTime @default(now())
-  updateAt      DateTime @updatedAt
-  Client        Client?  @relation(fields: [clientId], references: [id])
-  clientId      String   @db.ObjectId
-  Invoice       Invoice? @relation(fields: [invoiceId], references: [id])
-  invoiceId     String?  @db.ObjectId
+  createAt      DateTime  @default(now())
+  updateAt      DateTime  @updatedAt
+  Client        Client?   @relation(fields: [clientId], references: [id])
+  clientId      String    @db.ObjectId
+  Invoice       Invoice[]
+  invoiceId     String?   @db.ObjectId
 }
 
 model Invoice {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  balance  Float?
-  createAt DateTime  @default(now())
-  account  Account[]
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  balance  Float
+  createAt DateTime @default(now())
+  Account   Account? @relation(fields: [accountId], references: [id])
+  accountId String?  @db.ObjectId
 }
 
 type AccountType {

@@ -41,11 +41,6 @@ export const action: ActionFunction = async ({ request }) => {
                 clientId: clientAccount?.clientId,
                 iban: clientAccount?.iban
             } as Account
-            try {
-                await showSuccessAlert("withdraw with sucess")
-            } catch (error) {
-                return json({ error: `Invalid form data`, form: action }, { status: 403 })
-            }
 
             return await debit(account, balanceValue)
         }
