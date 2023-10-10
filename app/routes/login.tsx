@@ -10,7 +10,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     return await getClient(request) ? redirect('/') : null
 }
 
-
 export const action: ActionFunction = async ({ request }) => {
     const form = await request.formData()
     const action = form.get("_action")

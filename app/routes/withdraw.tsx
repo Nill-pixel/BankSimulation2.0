@@ -10,7 +10,6 @@ import { Profiles } from "~/component/profile";
 import { WithdrawForm } from "~/component/withdraw";
 import { debit, getAccount } from "~/utils/account.server";
 import { getClient, requireClientId } from "~/utils/auth.server";
-import { showSuccessAlert } from "~/utils/sweetAlert.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
     const client = await getClient(request)
