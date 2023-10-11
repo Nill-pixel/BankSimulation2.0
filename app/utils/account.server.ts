@@ -103,3 +103,9 @@ export const generateInvoice = async (name: string, balance: number, accountId: 
         }
     })
 }
+
+export const getInvoice = async (accountId: string) => {
+    return await prisma.invoice.findMany({
+        where: { accountId: accountId }
+    })
+}
