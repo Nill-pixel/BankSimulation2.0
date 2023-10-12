@@ -95,11 +95,13 @@ export const getTargetClient = async (clientId: string) => {
 }
 
 export const generateInvoice = async (name: string, balance: number, accountId: string) => {
+    const invoiceNumber = Math.floor(Math.random() * 9999);
     return await prisma.invoice.create({
         data: {
             name: name,
             balance: balance,
-            accountId: accountId
+            accountId: accountId,
+            number: invoiceNumber
         }
     })
 }

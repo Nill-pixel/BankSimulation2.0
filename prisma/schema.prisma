@@ -40,10 +40,11 @@ model Account {
 }
 
 model Invoice {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  balance  Float
-  createAt DateTime @default(now())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  balance   Float
+  number    Int
+  createAt  DateTime @default(now())
   Account   Account? @relation(fields: [accountId], references: [id])
   accountId String?  @db.ObjectId
 }

@@ -56,15 +56,13 @@ export default function Historic({ invoices }: props) {
                             </div>
                         </th>
 
-                        <th scope="col" className="px-6 py-3 text-left">
+                        <th scope="col" className="px-6 py-3 text-right">
                             <div className="flex items-center gap-x-2">
                                 <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                    Created
+                                    Invoice
                                 </span>
                             </div>
                         </th>
-
-                        <th scope="col" className="px-6 py-3 text-right"></th>
                     </tr>
                 </thead>
                 {
