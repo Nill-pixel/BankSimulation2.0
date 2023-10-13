@@ -1,7 +1,3 @@
-import { Profile } from "@prisma/client"
-import { getAccountByIBAN } from "~/utils/account.server"
-import { getClient } from "~/utils/auth.server"
-
 interface targetUserProps {
     value: string
     profile: string
