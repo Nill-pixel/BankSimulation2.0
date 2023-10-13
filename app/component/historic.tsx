@@ -116,7 +116,7 @@ export default function Historic({ invoices }: props) {
                             <div className="mt-5 sm:mt-10 grid grid-cols-2 sm:grid-cols-3 gap-5">
                                 <div>
                                     <span className="block text-xs uppercase text-gray-500">Amount paid:</span>
-                                    <span className="block text-sm font-medium text-gray-800 dark:text-gray-200">$316.8</span>
+                                    <span className="block text-sm font-medium text-gray-800 dark:text-gray-200"></span>
                                 </div>
 
                                 <div>

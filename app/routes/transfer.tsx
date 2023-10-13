@@ -1,6 +1,6 @@
 import { Account } from "@prisma/client";
 import { ActionFunction, LoaderFunction, json } from "@remix-run/node";
-import { Outlet, useActionData, useLoaderData } from "@remix-run/react";
+import { Outlet, useActionData, useLoaderData, useNavigate } from "@remix-run/react";
 import React, { useState } from "react";
 import Card from "~/component/card";
 import { Layout } from "~/component/layout";
@@ -8,7 +8,6 @@ import Menu from "~/component/menu";
 import MenuProfile from "~/component/menu-profile";
 import { Profiles } from "~/component/profile";
 import { TransferForm } from "~/component/transfer";
-import { TargetUser } from "~/component/transfer-modal";
 import { getAccount, getAccountByIBAN, getTargetClient, transfer } from "~/utils/account.server";
 import { getClient, requireClientId } from "~/utils/auth.server";
 
@@ -55,13 +54,14 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function Withdraw() {
-    const { client, clientAccount, targetClient } = useLoaderData()
+    const { client, clientAccount } = useLoaderData()
     const actionData = useActionData();
     const [formData, setFormData] = useState({
         balance: actionData?.fields?.balance || '',
         iban: actionData?.fields?.iban || ''
     })
     const [action] = useState('transfer')
+    const navigate = useNavigate();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
         setFormData(form => ({
@@ -69,6 +69,8 @@ export default function Withdraw() {
             [field]: event.target.value
         }))
     }
+
+
     return (
         <Layout>
             <Menu><MenuProfile profile={client.profile} /></Menu>
@@ -96,21 +98,27 @@ export default function Withdraw() {
                                         <TransferForm
                                             label="IBAN"
                                             htmlFor="iban"
-                                            type="text" />
+                                            type="text" 
+                                            value={formData.iban}
+                                            onChange={e => handleInputChange(e, 'iban')}/>
                                     </div>
                                     <div className="pt-2 sm:pt-0 sm:pl-3 border-t border-gray-200 sm:border-t-0 sm:border-l sm:flex-[1_0_0%] dark:border-gray-700">
                                         <TransferForm
                                             label="Balance"
                                             htmlFor="balance"
+                                            value={formData.balance}
+                                            onChange={e => handleInputChange(e, 'balance')}
                                         />
                                     </div>
                                     <div className="pt-2 sm:pt-0 grid sm:block sm:flex-[0_0_auto]">
-                                        <button type="button" className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-subscription-with-image">
-                                            Transfer
-                                        </button>
+                                        <a onClick={() => navigate(`${formData.iban}`)} >
+                                            <button type="button" className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-subscription-with-image">
+                                                Transfer
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
-                              <Outlet />
+                                <Outlet />
                             </form>
 
                             <div className="hidden absolute top-2/4 left-0 transform -translate-y-2/4 -translate-x-40 md:block lg:-translate-x-80" aria-hidden="true">

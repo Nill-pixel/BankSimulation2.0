@@ -23,6 +23,8 @@ export function TransferForm({
     }, [error])
     return <>
         <label htmlFor={htmlFor} className="block text-sm font-medium dark:text-white"><span className="sr-only">{label}</span></label>
-        <input type={type} value={value} name={htmlFor} id={htmlFor} className="py-3 px-4 block w-full border-transparent rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:p-4 dark:bg-slate-900 dark:border-transparent dark:text-gray-400" placeholder={label} />
+        <input 
+        onChange={e => onChange(e)}
+        type={type} value={value} name={htmlFor} id={htmlFor} className="py-3 px-4 block w-full border-transparent rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:p-4 dark:bg-slate-900 dark:border-transparent dark:text-gray-400" placeholder={label} />
     </>
 }
