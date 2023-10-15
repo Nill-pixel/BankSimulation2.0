@@ -98,9 +98,9 @@ export default function Withdraw() {
                                         <TransferForm
                                             label="IBAN"
                                             htmlFor="iban"
-                                            type="text" 
+                                            type="text"
                                             value={formData.iban}
-                                            onChange={e => handleInputChange(e, 'iban')}/>
+                                            onChange={e => handleInputChange(e, 'iban')} />
                                     </div>
                                     <div className="pt-2 sm:pt-0 sm:pl-3 border-t border-gray-200 sm:border-t-0 sm:border-l sm:flex-[1_0_0%] dark:border-gray-700">
                                         <TransferForm
