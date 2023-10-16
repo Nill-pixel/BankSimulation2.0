@@ -45,6 +45,7 @@ export const action: ActionFunction = async ({ request }) => {
                 clientId: clientAccount?.clientId,
                 iban: clientAccount?.iban
             } as Account
+            console.log(targetClient?.email)
             return await transfer(account, targetAccount as Account, balanceValue)
         }
         default: {
@@ -60,8 +61,8 @@ export default function Withdraw() {
         balance: actionData?.fields?.balance || '',
         iban: actionData?.fields?.iban || ''
     })
+
     const [action] = useState('transfer')
-    const navigate = useNavigate();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
         setFormData(form => ({
@@ -111,11 +112,9 @@ export default function Withdraw() {
                                         />
                                     </div>
                                     <div className="pt-2 sm:pt-0 grid sm:block sm:flex-[0_0_auto]">
-                                        <a onClick={() => navigate(`${formData.iban}`)} >
-                                            <button type="button" className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-subscription-with-image">
-                                                Transfer
-                                            </button>
-                                        </a>
+                                        <button name="_action" value={action} type="submit" className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-subscription-with-image">
+                                            Transfer
+                                        </button>
                                     </div>
                                 </div>
                                 <Outlet />
