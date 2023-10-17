@@ -5,7 +5,7 @@ interface props {
     invoices: Invoice[]
 }
 export default function Historic({ invoices }: props) {
-    if(!invoices){
+    if (!invoices) {
         return <div> Error</div>
     }
     return (
@@ -66,7 +66,7 @@ export default function Historic({ invoices }: props) {
                     </tr>
                 </thead>
                 {
-                    invoices.map(
+                    invoices.slice(0, 10).map(
                         invoice => <HistoricInvoice
                             historic={invoice}
                             key={invoice.id} />
